@@ -9,6 +9,6 @@ public interface BoardService {
     Collection<Board> list(int limit);
     Board get(Long id);
     Board getByName(String name);
-    Board update(Board board);
+    Board updateName(Board board);
     Boolean delete(Long id);
 }

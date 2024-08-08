@@ -1,5 +1,6 @@
 package io.getarrays.trello;
 
+import io.getarrays.trello.model.BList;
 import io.getarrays.trello.model.Board;
 import io.getarrays.trello.repo.BoardRepo;
 import org.springframework.boot.CommandLineRunner;
@@ -13,13 +14,16 @@ public class TrelloApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TrelloApplication.class, args);
 	}
-
 	@Bean
 	CommandLineRunner run(BoardRepo boardRepo) {
 		return args -> {
-			boardRepo.save(new Board(null, "Board1"));
-			boardRepo.save(new Board(null, "Board2"));
-			boardRepo.save(new Board(null, "Board3"));
+			Board board1 = new Board();
+			board1.setName("B1");
+			BList bList1 = new BList(null, "BList1");
+			board1.getBLists().add(bList1);
+			BList bList2 = new BList(null, "BList2");
+			board1.getBLists().add(bList2);
+			boardRepo.save(board1);
 		};
 	}
 }

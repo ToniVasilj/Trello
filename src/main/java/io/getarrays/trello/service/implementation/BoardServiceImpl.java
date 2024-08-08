@@ -3,14 +3,14 @@ package io.getarrays.trello.service.implementation;
 import io.getarrays.trello.model.Board;
 import io.getarrays.trello.repo.BoardRepo;
 import io.getarrays.trello.service.BoardService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 
 import static java.lang.Boolean.*;
 import static org.springframework.data.domain.PageRequest.*;
@@ -20,6 +20,7 @@ import static org.springframework.data.domain.PageRequest.*;
 @Transactional
 @Slf4j
 public class BoardServiceImpl implements BoardService {
+    @Autowired
     private final BoardRepo boardRepo;
 
     @Override
@@ -47,9 +48,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board update(Board board) {
-        log.info("Updating board: {}", board.getName());
-        return boardRepo.save(board);
+    public Board updateName(Board board) {
+        log.info("Updating board name: {}", board.getName());
+        Board existingBoard = boardRepo.findById(board.getId())
+                .orElseThrow(()->new EntityNotFoundException("Board not found with id " + board.getId()));
+
+        existingBoard.setName(board.getName());
+        return boardRepo.save(existingBoard);
     }
 
     @Override

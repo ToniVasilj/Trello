@@ -47,12 +47,25 @@ public class BoardResource {
         );
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Response> getBoardById(@PathVariable("id") Long id) {
+    @PostMapping("/updateName")
+    public ResponseEntity<Response> updateBoard(@RequestBody @Valid Board board) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(of("board", boardService.get(id)))
+                        .data(of("board", boardService.updateName(board)))
+                        .message("Board created")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build()
+        );
+    }
+
+    @GetMapping("/get/{boardId}")
+    public ResponseEntity<Response> getBoardById(@PathVariable("boardId") Long boardId) {
+        return ResponseEntity.ok(
+                Response.builder()
+                        .timeStamp(now())
+                        .data(of("board", boardService.get(boardId)))
                         .message("Board retrieved")
                         .status(OK)
                         .statusCode(OK.value())
@@ -60,12 +73,12 @@ public class BoardResource {
         );
     }
 
-    @GetMapping("/getByName/{name}")
-    public ResponseEntity<Response> getBoardById(@PathVariable("name") String name) {
+    @GetMapping("/getByName/{boardName}")
+    public ResponseEntity<Response> getBoardById(@PathVariable("boardName") String boardName) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(of("board", boardService.getByName(name)))
+                        .data(of("board", boardService.getByName(boardName)))
                         .message("Board retrieved")
                         .status(OK)
                         .statusCode(OK.value())
@@ -73,12 +86,12 @@ public class BoardResource {
         );
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response> deleteBoard(@PathVariable("id") Long id) {
+    @DeleteMapping("/delete/{boardId}")
+    public ResponseEntity<Response> deleteBoard(@PathVariable("boardId") Long boardId) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(of("deleted", boardService.delete(id)))
+                        .data(of("deleted", boardService.delete(boardId)))
                         .message("Board deleted")
                         .status(OK)
                         .statusCode(OK.value())
