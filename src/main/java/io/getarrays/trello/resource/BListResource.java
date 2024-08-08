@@ -1,7 +1,6 @@
 package io.getarrays.trello.resource;
 
 import io.getarrays.trello.model.BList;
-import io.getarrays.trello.model.Board;
 import io.getarrays.trello.model.Response;
 import io.getarrays.trello.service.implementation.BListServiceImpl;
 import jakarta.validation.Valid;
@@ -15,17 +14,16 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/board/{boardId}")
 @RequiredArgsConstructor
 public class BListResource {
     private final BListServiceImpl bListService;
 
-    @GetMapping("/list")
+    @GetMapping("/board/{boardId}/blists")
     public ResponseEntity<Response> getBListsByBoardId(@PathVariable("boardId") Long boardId) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(of("bLists", bListService.list(boardId, 30)))
+                        .data(of("bLists", bListService.list(boardId)))
                         .message("BLists retrieved")
                         .status(OK)
                         .statusCode(OK.value())
@@ -33,7 +31,7 @@ public class BListResource {
         );
     }
 
-    @PostMapping("/save")
+    @PostMapping("/board/{boardId}/blist/save")
     public ResponseEntity<Response> saveBListToBoard(@PathVariable("boardId") Long boardId, @RequestBody @Valid BList bList) {
         return ResponseEntity.ok(
                 Response.builder()
@@ -46,12 +44,12 @@ public class BListResource {
         );
     }
 
-    @GetMapping("/get/{bListId}")
-    public ResponseEntity<Response> getBoardById(@PathVariable("boardId") Long boardId, @PathVariable("bListId") Long bListId) {
+    @GetMapping("/blist/get/{bListId}")
+    public ResponseEntity<Response> getBoardById(@PathVariable("bListId") Long bListId) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(of("board", bListService.get(boardId, bListId)))
+                        .data(of("board", bListService.get(bListId)))
                         .message("BList retrieved")
                         .status(OK)
                         .statusCode(OK.value())
@@ -59,7 +57,7 @@ public class BListResource {
         );
     }
 
-    @DeleteMapping("/delete/{bListId}")
+    @DeleteMapping("/blist/delete/{bListId}")
     public ResponseEntity<Response> deleteBoard(@PathVariable("bListId") Long bListId) {
         return ResponseEntity.ok(
                 Response.builder()

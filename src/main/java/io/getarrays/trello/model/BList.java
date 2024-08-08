@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static jakarta.persistence.GenerationType.AUTO;
 
 @Entity
@@ -16,10 +19,14 @@ import static jakarta.persistence.GenerationType.AUTO;
 public class BList {
     @Id
     @GeneratedValue(strategy = AUTO)
-    @Column(name = "bListId")
+    @Column(name = "bListId", unique = true)
     private Long id;
 
-    @Column(name = "bListName", unique = true)
+    @Column(name = "bListName")
     @NotEmpty(message = "BList name cannot be empty")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "bList_id")
+    private List<Card> cards = new ArrayList<>();
 }

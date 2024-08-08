@@ -1,7 +1,6 @@
 package io.getarrays.trello.service.implementation;
 
 import io.getarrays.trello.model.BList;
-import io.getarrays.trello.model.Board;
 import io.getarrays.trello.repo.BListRepo;
 import io.getarrays.trello.repo.BoardRepo;
 import io.getarrays.trello.service.BListService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 import static java.lang.Boolean.*;
-import static org.springframework.data.domain.PageRequest.*;
 
 @RequiredArgsConstructor
 @Service
@@ -33,15 +31,15 @@ public class BListServiceImpl implements BListService {
         return bListRepo.save(bList);
     }
     @Override
-    public Collection<BList> list(Long boardId, int limit) {
-        log.info("Fetching all bLists");
+    public Collection<BList> list(Long boardId) {
+        log.info("Fetching all bLists from board: {}", boardId);
         return boardRepo.findById(boardId).get().getBLists().stream().toList();
     }
 
     @Override
-    public BList get(Long boardId, Long id) {
-        log.info("Fetching bList by id: {} from boardId: {}", id, boardId);
-        return boardRepo.findById(boardId).get().getBLists().stream().filter(bList -> bList.getId().equals(id)).findFirst().get();
+    public BList get(Long id) {
+        log.info("Fetching bList by id: {}", id);
+        return bListRepo.findById(id).get();
     }
 
     @Override

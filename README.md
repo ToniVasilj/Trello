@@ -1,7 +1,7 @@
 # HTTP requestes #
 # Board #
-**Get boards list:** \
-**GET** http://localhost:8080/board/list
+**Get boards:** \
+**GET** http://localhost:8080/board/boards
 
 **Get board by boardId:** \
 **GET** http://localhost:8080/board/get/{boardId}
@@ -19,14 +19,31 @@
 **DELTE** http://localhost:8080/board/delete/{boardId}
 
 # BList #
-**Get list of bLists within the board by boardId** \
-**GET** http://localhost:8080/board/{boardId}/list
+**Get bLists within the specific board** \
+**GET** http://localhost:8080/board/{boardId}/blists
 
-**Get bList by Id of specific board** \
-**GET** http://localhost:8080/board/{boardId}/get/{bListId}
+**Get bList by Id** \
+**GET** http://localhost:8080/blist/get/{bListId}
 
 **Save/Create new bList within specific board:** \
-**POST** http://localhost:8080/board/{boardId}/save
+**POST** http://localhost:8080/board/{boardId}/blist/save
 
-**Delete bList by Id from specific board:** \
-**DELETE** http://localhost:8080/board/{boardId}/delete/{bListId}
+**Delete bList by Id:** \
+**DELETE** http://localhost:8080/blist/delete/{bListId}
+
+
+# Card #
+**Get cards within the specific bList of specific board** \
+**GET** http://localhost:8080/board/{boardId}/list/{bListId}/cards
+
+**Get card by Id** \
+**GET** http://localhost:8080/card/get/{cardId}
+
+**Save/Create new card within specific bList of specific board:** \
+**POST** http://localhost:8080/board/{boardId}/blist/{bListId}/save
+
+**Update card text:** \
+**POST** http://localhost:8080/card/updateText
+
+**Delete card by Id:** \
+**DELETE** http://localhost:8080/card/delete/{cardId}

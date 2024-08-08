@@ -1,6 +1,5 @@
 package io.getarrays.trello.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
