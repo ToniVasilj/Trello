@@ -1,4 +1,4 @@
-package io.getarrays.trello.resource;
+package io.getarrays.trello.controller;
 
 import io.getarrays.trello.model.Card;
 import io.getarrays.trello.model.Response;
@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequiredArgsConstructor
-public class CardResource {
+public class CardController {
     private final CardServiceImpl cardService;
 
     @PostMapping("/board/{boardId}/blist/{bListId}/save")

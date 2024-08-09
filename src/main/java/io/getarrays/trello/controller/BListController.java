@@ -1,4 +1,4 @@
-package io.getarrays.trello.resource;
+package io.getarrays.trello.controller;
 
 import io.getarrays.trello.model.BList;
 import io.getarrays.trello.model.Response;
@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequiredArgsConstructor
-public class BListResource {
+public class BListController {
     private final BListServiceImpl bListService;
 
     @GetMapping("/board/{boardId}/blists")
