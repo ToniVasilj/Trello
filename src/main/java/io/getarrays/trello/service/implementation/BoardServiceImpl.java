@@ -1,6 +1,7 @@
 package io.getarrays.trello.service.implementation;
 
 import io.getarrays.trello.model.Board;
+import io.getarrays.trello.model.projection.BoardProjection;
 import io.getarrays.trello.repo.BoardRepo;
 import io.getarrays.trello.service.BoardService;
 import jakarta.persistence.EntityNotFoundException;
@@ -33,6 +34,10 @@ public class BoardServiceImpl implements BoardService {
     public Collection<Board> list(int limit) {
         log.info("Fetching all boards");
         return boardRepo.findAll(of(0,limit)).toList();
+    }
+
+    public Collection<BoardProjection> getBoardIdsAndNames() {
+        return boardRepo.findAllProjectedBy();
     }
 
     @Override

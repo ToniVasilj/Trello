@@ -31,6 +31,19 @@ public class BoardController {
         );
     }
 
+    @GetMapping("/board/boards/idAndName")
+    public ResponseEntity<Response> getBoardsIdAndName() {
+        return ResponseEntity.ok(
+                Response.builder()
+                        .timeStamp(now())
+                        .data(of("boards", boardService.getBoardIdsAndNames()))
+                        .message("Boards Id and Names retrieved")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build()
+        );
+    }
+
     @PostMapping("/board/save")
     public ResponseEntity<Response> saveBoard(@RequestBody @Valid Board board) {
         return ResponseEntity.ok(
