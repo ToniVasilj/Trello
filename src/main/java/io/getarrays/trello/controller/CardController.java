@@ -49,7 +49,7 @@ public class CardController {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(of("board", cardService.get(cardId)))
+                        .data(of("card", cardService.get(cardId)))
                         .message("Card retrieved")
                         .status(OK)
                         .statusCode(OK.value())
